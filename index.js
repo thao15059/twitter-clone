@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
-
 require("dotenv").config();
+const session = require("express-session");
 
 const mongoose = require("./database");
 const middleware = require("./middleware");
@@ -23,16 +23,27 @@ app.use(
     extended: false,
   })
 );
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: false,
+  })
+);
 
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/login", loginRoute);
 app.use("/register", registerRoute);
 
+// app.use(middleware.notFound);
+// app.use(middleware.errorHandler);
+
 app.get("/", middleware.requireLogin, (req, res, next) => {
   const payload = {
     pageTitle: "Home",
+    userLoggedIn: req.session.user,
   };
 
-  res.status(200).render("home", payload);
+  return res.status(200).render("home", payload);
 });

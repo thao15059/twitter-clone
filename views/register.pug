@@ -3,8 +3,8 @@ extends layouts/login-register-layout.pug
 block content 
   .loginContainer
     h1 Register 
-    form#registerForm.login-form(method="post") 
-      p.errorMessage #{errorMessage}
+    form#registerForm.form(method="post") 
+      p.errorMessage.bg-danger.text-light #{errorMessage}
 
       input(type="text", name="firstName", placeholder="First Name", value=firstName, required="")
       input(type="text", name="lastName", placeholder="Last Name", value=lastName, required="")

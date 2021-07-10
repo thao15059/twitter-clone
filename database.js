@@ -11,6 +11,7 @@ class Database {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false,
+        useCreateIndex: true,
       })
       .then(() => {
         console.log("Database connection successful");
