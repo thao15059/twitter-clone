@@ -11,3 +11,17 @@ postTextarea.addEventListener("keyup", (e) => {
 
   postButton.removeAttribute("disabled");
 });
+
+postButton.addEventListener("click", () => {
+  const content = postTextarea.value;
+
+  fetch("/api/posts", {
+    method: "POST",
+    body: JSON.stringify({ content }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data));
+});

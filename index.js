@@ -1,13 +1,14 @@
 const express = require("express");
 const path = require("path");
 require("dotenv").config();
+require("./database");
 const session = require("express-session");
 
-const mongoose = require("./database");
 const middleware = require("./middleware");
 const loginRoute = require("./routes/loginRoutes");
 const registerRoute = require("./routes/registerRoutes");
 const logoutRoute = require("./routes/logoutRoutes");
+const postsApiRoute = require("./routes/api/posts");
 
 const app = express();
 
@@ -37,6 +38,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/login", loginRoute);
 app.use("/register", registerRoute);
 app.use("/logout", logoutRoute);
+
+app.use("/api/posts", postsApiRoute);
 
 // app.use(middleware.notFound);
 // app.use(middleware.errorHandler);
