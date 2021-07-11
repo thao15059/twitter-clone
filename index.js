@@ -44,6 +44,7 @@ app.use("/logout", logoutRoute);
 app.get("/", middleware.requireLogin, (req, res, next) => {
   const payload = {
     pageTitle: "Home",
+    userLoggedIn: req.session.user,
   };
 
   return res.status(200).render("home", payload);
