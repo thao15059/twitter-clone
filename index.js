@@ -7,6 +7,7 @@ const mongoose = require("./database");
 const middleware = require("./middleware");
 const loginRoute = require("./routes/loginRoutes");
 const registerRoute = require("./routes/registerRoutes");
+const logoutRoute = require("./routes/logoutRoutes");
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/login", loginRoute);
 app.use("/register", registerRoute);
+app.use("/logout", logoutRoute);
 
 // app.use(middleware.notFound);
 // app.use(middleware.errorHandler);
@@ -42,7 +44,6 @@ app.use("/register", registerRoute);
 app.get("/", middleware.requireLogin, (req, res, next) => {
   const payload = {
     pageTitle: "Home",
-    userLoggedIn: req.session.user,
   };
 
   return res.status(200).render("home", payload);
